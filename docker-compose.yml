@@ -12,6 +12,7 @@ services:
       - "traefik.http.routers.mp3-tools.tls=true"
       - "traefik.http.routers.mp3-tools.tls.certresolver=myresolver"
       - "traefik.http.services.mp3-tools.loadbalancer.server.port=3000"
+      - "com.centurylinklabs.watchtower.enable=true"
     environment:
       - NODE_ENV=production
       - TZ=Asia/Shanghai
