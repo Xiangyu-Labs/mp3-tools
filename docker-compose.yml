@@ -2,8 +2,33 @@ services:
   web:
     image: ghcr.io/xiangyumou/mp3-tools:latest
     container_name: mp3-tools-web
-    ports:
-      - "3000:3000"
+    restart: always
+    networks:
+      - server-internal-net
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.mp3-tools.rule=Host(`mp3-tools.xiangyu.pro`)"
+      - "traefik.http.routers.mp3-tools.entrypoints=websecure"
+      - "traefik.http.routers.mp3-tools.tls=true"
+      - "traefik.http.routers.mp3-tools.tls.certresolver=myresolver"
+      - "traefik.http.services.mp3-tools.loadbalancer.server.port=3000"
     environment:
       - NODE_ENV=production
-    restart: always
+      - TZ=Asia/Shanghai
+
+  watchtower:
+    image: containrrr/watchtower
+    container_name: mp3-tools-watchtower
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+    environment:
+      - WATCHTOWER_POLL_INTERVAL=300
+      - WATCHTOWER_CLEANUP=true
+    command: mp3-tools-web
+    networks:
+      - server-internal-net
+    restart: unless-stopped
+
+networks:
+  server-internal-net:
+    external: true

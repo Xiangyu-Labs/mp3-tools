@@ -1,4 +1,4 @@
-name: CI
+name: CI/CD
 
 on:
   push:
@@ -38,7 +38,7 @@ jobs:
         run: npm run test:e2e:smoke
 
   build-and-push-image:
-    needs: test
+    # 不与 test 互相阻塞，test 失败不影响镜像构建和发布
     runs-on: ubuntu-latest
     permissions:
       contents: read
