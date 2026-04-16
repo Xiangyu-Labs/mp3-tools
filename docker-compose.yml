@@ -16,19 +16,6 @@ services:
       - NODE_ENV=production
       - TZ=Asia/Shanghai
 
-  watchtower:
-    image: containrrr/watchtower:latest
-    container_name: mp3-tools-watchtower
-    volumes:
-      - /var/run/docker.sock:/var/run/docker.sock
-    environment:
-      - WATCHTOWER_POLL_INTERVAL=300
-      - WATCHTOWER_CLEANUP=true
-    command: mp3-tools-web
-    networks:
-      - server-internal-net
-    restart: unless-stopped
-
 networks:
   server-internal-net:
     external: true
