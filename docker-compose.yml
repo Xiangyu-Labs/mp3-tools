@@ -3,8 +3,6 @@ services:
     image: ghcr.io/xiangyumou/mp3-tools:latest
     container_name: mp3-tools-web
     restart: always
-    networks:
-      - server-internal-net
     environment:
       - NODE_ENV=production
       - TZ=Asia/Shanghai
@@ -18,10 +16,4 @@ services:
       - WATCHTOWER_POLL_INTERVAL=300
       - WATCHTOWER_CLEANUP=true
     command: mp3-tools-web
-    networks:
-      - server-internal-net
     restart: unless-stopped
-
-networks:
-  server-internal-net:
-    external: true
