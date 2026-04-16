@@ -1,6 +1,6 @@
 services:
   web:
-    image: ghcr.io/xiangyumou/mp3-tools:latest
+    image: ghcr.io/xiangyu-labs/mp3-tools:latest
     container_name: mp3-tools-web
     restart: always
     environment:
