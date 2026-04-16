@@ -3,20 +3,8 @@ services:
     image: ghcr.io/xiangyu-labs/mp3-tools:latest
     container_name: mp3-tools-web
     restart: always
-    networks:
-      - server-internal-net
     labels:
-      - "traefik.enable=true"
-      - "traefik.http.routers.mp3-tools.rule=Host(`mp3-tools.xiangyu.pro`)"
-      - "traefik.http.routers.mp3-tools.entrypoints=websecure"
-      - "traefik.http.routers.mp3-tools.tls=true"
-      - "traefik.http.routers.mp3-tools.tls.certresolver=myresolver"
-      - "traefik.http.services.mp3-tools.loadbalancer.server.port=3000"
       - "com.centurylinklabs.watchtower.enable=true"
     environment:
       - NODE_ENV=production
       - TZ=Asia/Shanghai
-
-networks:
-  server-internal-net:
-    external: true
